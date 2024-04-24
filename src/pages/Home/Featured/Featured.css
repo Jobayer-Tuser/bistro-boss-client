@@ -1,0 +1,11 @@
+.featured-container{
+    background-image: url(../../../assets/home/featured.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #0c0505;
+}
+#featured-btn:hover{
+    background-color: white;
+    color: black;
+    border-color: white;
+}

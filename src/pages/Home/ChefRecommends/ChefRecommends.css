@@ -1,0 +1,6 @@
+#card-btn{
+    background-color: gray;
+}
+#card-btn:hover{
+    background-color: rgb(5, 0, 15);
+}
