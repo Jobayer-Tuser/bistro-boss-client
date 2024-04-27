@@ -1,0 +1,6 @@
+#signUp-container{
+    background-image: url(../../assets/others/authentication.png);
+}
+#already-done:hover{
+    color: #24190a;
+}

@@ -1,10 +1,25 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const Navbar = () => {
+
+    const { user, logOut } = useContext(AuthContext)
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.log(error))
+    }
+
     const navOptions = <>
-        <li><Link to='/'>Home</Link></li>
-        <li><Link to='/menu'>Our-Menu</Link></li>
-        <li><a>Item 3</a></li>
+        <li><button className="btn btn-ghost"><Link to='/'>Home</Link></button></li>
+        <li><button className="btn btn-ghost"><Link to='/menu'>Our-Menu</Link></button></li>
+        <li><button className="btn btn-ghost"><Link to='/order'>Order-Food</Link></button></li>
+        <li><button className="btn btn-ghost"><Link to='/login'>Login</Link></button></li>
+        {
+            user ? <li><button className="btn btn-ghost" onClick={handleLogOut}>Logout</button></li> : <li><button className="btn btn-ghost"><Link to='/login'>Login</Link></button></li>
+        }
     </>
     return (
         <>
@@ -22,9 +37,12 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li><Link to='/'>Home</Link></li>
-                        <li><Link to ='/menu'>Our-Menu</Link></li>
-                        <li><a>Item 3</a></li>
+                        <li><button className="btn btn-ghost"><Link to='/'>Home</Link></button></li>
+                        <li><button className="btn btn-ghost"><Link to='/menu'>Our-Menu</Link></button></li>
+                        <li><button className="btn btn-ghost"><Link to='/order'>Order-Food</Link></button></li>
+                        {
+                            user ? <li><button className="btn btn-ghost" onClick={handleLogOut}>Logout</button></li> : <li><button className="btn btn-ghost"><Link to='/login'>Login</Link></button></li>
+                        }
                     </ul>
                 </div>
                 <div className="navbar-end">
