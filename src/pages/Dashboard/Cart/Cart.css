@@ -1,0 +1,13 @@
+#cart-table-header th{
+    color: white;
+}
+#cart-table-header{
+    border-radius: 10px;
+}
+#pay-btn{
+    padding: 4px 10px;
+    border-radius: 5px;
+}
+#pay-btn:hover{
+    background-color: rgb(25, 46, 68);
+}

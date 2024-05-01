@@ -1,10 +1,13 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { FaCartShopping } from "react-icons/fa6";
+import useCart from "../../../hooks/useCart";
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
+    const [cart] = useCart();
 
     const handleLogOut = () => {
         logOut()
@@ -13,12 +16,19 @@ const Navbar = () => {
     }
 
     const navOptions = <>
-        <li><button className="btn btn-ghost"><Link to='/'>Home</Link></button></li>
-        <li><button className="btn btn-ghost"><Link to='/menu'>Our-Menu</Link></button></li>
-        <li><button className="btn btn-ghost"><Link to='/order'>Order-Food</Link></button></li>
-        <li><button className="btn btn-ghost"><Link to='/login'>Login</Link></button></li>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/menu'>Our-Menu</Link></li>
+        <li><Link to='/order'>Order-Food</Link></li>
+        <li><Link to='/secret'>Secret</Link></li>
+        <li>
+            <Link to='/dashboard/cart'>
+                <FaCartShopping />
+                <div className="badge badge-secondary">+{cart.length}</div>
+            </Link>
+        </li>
+
         {
-            user ? <li><button className="btn btn-ghost" onClick={handleLogOut}>Logout</button></li> : <li><button className="btn btn-ghost"><Link to='/login'>Login</Link></button></li>
+            user ? <li onClick={handleLogOut}><button>Logout</button></li> : <li><Link to='/login'>Login</Link></li>
         }
     </>
     return (
@@ -37,11 +47,19 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li><button className="btn btn-ghost"><Link to='/'>Home</Link></button></li>
-                        <li><button className="btn btn-ghost"><Link to='/menu'>Our-Menu</Link></button></li>
-                        <li><button className="btn btn-ghost"><Link to='/order'>Order-Food</Link></button></li>
+                        <li><Link to='/'>Home</Link></li>
+                        <li><Link to='/menu'>Our-Menu</Link></li>
+                        <li><Link to='/order'>Order-Food</Link></li>
+                        <li><Link to='/secret'>Secret</Link></li>
+                        <li>
+                            <Link to='/dashboard/cart'>
+                                <FaCartShopping />
+                                <div className="badge badge-secondary">+{cart.length}</div>
+                            </Link>
+                        </li>
+
                         {
-                            user ? <li><button className="btn btn-ghost" onClick={handleLogOut}>Logout</button></li> : <li><button className="btn btn-ghost"><Link to='/login'>Login</Link></button></li>
+                            user ? <li onClick={handleLogOut}><button>Logout</button></li> : <li><Link to='/login'>Login</Link></li>
                         }
                     </ul>
                 </div>

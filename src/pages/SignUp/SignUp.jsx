@@ -6,20 +6,31 @@ import { useForm } from 'react-hook-form';
 import { Helmet } from 'react-helmet';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
+import Swal from 'sweetalert2';
 
 
 const SignUp = () => {
 
-    const { register, handleSubmit, formState: { errors }, } = useForm();
-    const {createUser} = useContext(AuthContext);
+    const { register, handleSubmit, reset, formState: { errors }, } = useForm();
+    const { createUser, updateUserProfile } = useContext(AuthContext);
 
     const onSubmit = (data) => {
-        console.log(data);
         createUser(data.email, data.password)
-        .then(result => {
-            const loggedUser = result.user;
-            console.log(loggedUser);
-        })
+            .then(result => {
+                console.log(result.user)
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => {
+                        reset();
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "You have successfully created an user",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
+                    .catch(error => console.log(error))
+            })
     }
 
     return (
@@ -29,13 +40,19 @@ const SignUp = () => {
             </Helmet>
             <div className="flex flex-col sm:flex-row items-center justify-center h-screen" id='signUp-container'>
                 <div className="w-10/12 h-[80vh] mx-auto shadow-lg shadow-slate-500 bg-transparent flex max-md:block max-md:shadow-none max-md:h-[100vh] px-10 max-md:px-0">
-                    <div className="w-full sm:w-1/2 px-4 py-8 sm:py-0 order-2 sm:order-1 mt-20 max-md:mt-20 mx-auto">
+                    <div className="w-full sm:w-1/2 px-4 py-8 sm:py-0 order-2 sm:order-1 mt-7 max-md:mt-10 mx-auto">
                         <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm">
                             <h2 className="text-2xl font-semibold mb-4 text-center text-black">Sign Up</h2>
                             <div className="mb-4">
                                 <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Name</label>
                                 <input type="name" id="name" {...register("name")} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white text-black" placeholder='Enter your name' required />
                             </div>
+
+                            <div className="mb-4">
+                                <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Photo URL</label>
+                                <input type="text" id="photoURL" {...register("photoURL")} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white text-black" placeholder='Enter photo url' required />
+                            </div>
+
                             <div className="mb-4">
                                 <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
                                 <input type="email" id="email" {...register("email")} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white text-black" placeholder='Enter your email' required />

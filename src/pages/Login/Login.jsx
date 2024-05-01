@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 import loginImg from '../../assets/others/Illustration.svg';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
 import { useEffect } from 'react';
@@ -15,6 +15,11 @@ const Login = () => {
     const captchaRef = useRef();
 
     const { signIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
+    console.log('Location state: ', location.state)
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -61,7 +66,9 @@ const Login = () => {
                           `
                         }
                     });
+                    navigate(from, {replace: true});
                 })
+                .catch(error => console.log(error))
         }
         else {
             Swal.fire({
