@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom';
 import signUpImage from '../../assets/others/authentication2.png';
-import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
 import './SignUp.css';
 import { useForm } from 'react-hook-form';
 import { Helmet } from 'react-helmet';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
+import UseAxiosPublic from '../../hooks/UseAxiosPublic';
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
 
 
 const SignUp = () => {
 
+    const axiosPublic = UseAxiosPublic();
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
 
@@ -20,14 +22,25 @@ const SignUp = () => {
                 console.log(result.user)
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
-                        reset();
-                        Swal.fire({
-                            position: "top-end",
-                            icon: "success",
-                            title: "You have successfully created an user",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
+                        // Create user entry in the database
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('user added to the database');
+                                    reset();
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: "You have successfully created an user",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                }
+                            })
                     })
                     .catch(error => console.log(error))
             })
@@ -73,17 +86,10 @@ const SignUp = () => {
 
                             <Link to='/login' className='label-text-alt link link-hover text-center' style={{ color: '#D1A054' }}><p id='already-done' className='mt-2'>Already registered? Go to login</p></Link>
                             <p className='text-xs text-black mt-2 text-center'>Or sign up with</p>
-                            <div className="flex justify-center mt-5 text-slate-600 text-xl">
-                                <a href="#" className='border-solid border-2 border-slate-500 w-[40px] h-[40px] flex justify-center items-center rounded-full social-link'>
-                                    <div><FaFacebookF /></div>
-                                </a>
-                                <a href="#" className='border-solid border-2 border-slate-500 w-[40px] h-[40px] flex justify-center items-center rounded-full mx-5 social-link'>
-                                    <div><FaGoogle /></div>
-                                </a>
-                                <a href="#" className='border-solid border-2 border-slate-500 w-[40px] h-[40px] flex justify-center items-center rounded-full social-link'>
-                                    <div><FaGithub /></div>
-                                </a>
-                            </div>
+
+                            {/* Social login buttons */}
+                            <SocialLogin></SocialLogin>
+
                         </form>
                     </div>
                     <div className="w-full sm:w-1/3 flex items-center justify-center order-1 sm:order-2 max-md:hidden">

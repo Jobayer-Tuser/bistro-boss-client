@@ -2,13 +2,13 @@ import { Helmet } from 'react-helmet';
 import loginImg from '../../assets/others/Illustration.svg';
 import './Login.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
 
 
 const Login = () => {
@@ -133,17 +133,10 @@ const Login = () => {
                                     <Link to='/signup' className="label-text-alt link link-hover text-black mt-2" style={{ color: '#D1A054' }}> <p id='already-done'>New here?Create an account</p> </Link>
                                     <p className='text-xs text-black mt-2'>Or sign in with</p>
                                 </label>
-                                <div className="flex justify-center mt-5 text-slate-600 text-xl">
-                                    <a href="#" className='border-solid border-2 border-slate-500 w-[40px] h-[40px] flex justify-center items-center rounded-full social-link'>
-                                        <div><FaFacebookF /></div>
-                                    </a>
-                                    <a href="#" className='border-solid border-2 border-slate-500 w-[40px] h-[40px] flex justify-center items-center rounded-full mx-5 social-link'>
-                                        <div><FaGoogle /></div>
-                                    </a>
-                                    <a href="#" className='border-solid border-2 border-slate-500 w-[40px] h-[40px] flex justify-center items-center rounded-full social-link'>
-                                        <div><FaGithub /></div>
-                                    </a>
-                                </div>
+
+                                {/* Social Login Buttons */}
+                                <SocialLogin></SocialLogin>
+
                             </form>
                         </div>
                     </div>
