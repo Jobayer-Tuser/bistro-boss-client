@@ -15,6 +15,35 @@ const AllUsers = () => {
         }
     });
 
+    const handleMakeAdmin = user => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, do it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/users/admin/${user._id}`)
+                    .then(res => {
+                        console.log(res.data);
+                        if (res.data.modifiedCount > 0) {
+                            refetch();
+                            Swal.fire({
+                                title: "Confirmed!",
+                                text: `${user.name} is an admin now.`,
+                                icon: "success"
+                            });
+                        }
+                    })
+
+            }
+        });
+
+    }
+
     const handleDeleteUser = (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -65,7 +94,9 @@ const AllUsers = () => {
                                     <td className="border  whitespace-no-wrap">{user.name}</td>
                                     <td className="border  whitespace-no-wrap">{user.email}</td>
                                     <td className="border  whitespace-no-wrap w-11 rounded">
-                                        <button className="p-full text-white btn btn-success"><FaUsers /></button>
+                                        {
+                                            user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="p-full text-white btn btn-success"><FaUsers /></button>
+                                        }
                                     </td>
                                     <td className="border  whitespace-no-wrap"><button className="btn btn-outline btn-error" onClick={() => handleDeleteUser(user._id)}><FaTrashCan /></button></td>
                                 </tr>

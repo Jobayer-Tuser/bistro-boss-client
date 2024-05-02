@@ -102,7 +102,7 @@ const Dashboard = () => {
                         <hr className="w-10/12 mx-auto my-5" />
 
                         <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
-                            <NavLink className='flex' to='/dashboard/cart'>
+                            <NavLink className='flex' to='/'>
                                 <FaHouse className="mt-1" />
                                 <p className="ml-2">Home</p>
                             </NavLink>
