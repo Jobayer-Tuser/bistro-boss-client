@@ -8,6 +8,7 @@ import { FaCalendarDays } from "react-icons/fa6";
 import { FaFilePen } from "react-icons/fa6";
 import { FaBars } from "react-icons/fa6";
 import { ImSpoonKnife } from "react-icons/im";
+import useAdmin from "../hooks/useAdmin";
 
 
 const Dashboard = () => {
@@ -19,7 +20,7 @@ const Dashboard = () => {
     };
 
     // Todo: get isAdmin value from the database.
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
 
     return (
         <>
@@ -40,7 +41,7 @@ const Dashboard = () => {
                                     </NavLink>
                                 </li>
                                 <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
-                                    <NavLink className='flex' to='/dashboard/reservation'>
+                                    <NavLink className='flex' to='/dashboard/addItems'>
                                         <ImSpoonKnife className="mt-1" />
                                         <p className="ml-2">Add Items</p>
                                     </NavLink>
@@ -135,7 +136,7 @@ const Dashboard = () => {
                     >
                         {isOpen ? <FaXmark /> : <FaAngleRight />}
                     </button>
-                    <div className="p-4 text-black">
+                    <div className="p-4 text-black h-screen">
                         <Outlet></Outlet>
                     </div>
                 </div>

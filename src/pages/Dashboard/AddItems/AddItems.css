@@ -1,0 +1,9 @@
+#add-item-form input, #add-item-form select, #add-item-form textarea{
+    background-color:rgb(223, 227, 232);
+}
+#add-item-form button{
+    background: linear-gradient(45deg, #B58130, #835D23);
+}
+#add-item-form button:hover{
+    background: linear-gradient(45deg, #dd9427, #b17a22);
+}
