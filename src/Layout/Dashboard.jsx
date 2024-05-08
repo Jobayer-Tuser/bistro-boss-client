@@ -47,7 +47,7 @@ const Dashboard = () => {
                                     </NavLink>
                                 </li>
                                 <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
-                                    <NavLink className='flex' to='/dashboard/review'>
+                                    <NavLink className='flex' to='/dashboard/manageItems'>
                                         <FaBars className="mt-1" />
                                         <p className="ml-2">Manage Items</p>
                                     </NavLink>
@@ -136,7 +136,7 @@ const Dashboard = () => {
                     >
                         {isOpen ? <FaXmark /> : <FaAngleRight />}
                     </button>
-                    <div className="p-4 text-black h-screen">
+                    <div className="p-4 text-black h-full max-md:h-full">
                         <Outlet></Outlet>
                     </div>
                 </div>

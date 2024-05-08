@@ -6,13 +6,13 @@ import { Helmet } from 'react-helmet';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
-import UseAxiosPublic from '../../hooks/UseAxiosPublic';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 
 const SignUp = () => {
 
-    const axiosPublic = UseAxiosPublic();
+    const axiosPublic = useAxiosPublic();
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
 

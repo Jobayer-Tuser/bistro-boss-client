@@ -2,24 +2,49 @@ import { ImSpoonKnife } from "react-icons/im";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import { useForm } from "react-hook-form"
 import './AddItems.css';
-import UseAxiosPublic from "../../../hooks/UseAxiosPublic";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddItems = () => {
-    const { register, handleSubmit } = useForm();
-    const axiosPublic = UseAxiosPublic();
+    const { register, handleSubmit, reset } = useForm();
+    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const onSubmit = async (data) => {
-        console.log(data);
         // image upload to imgbb and then get an url
-        const imageFile = {image: data.image[0]};
+        const imageFile = { image: data.image[0] };
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
-            headers:{
+            headers: {
                 'content-type': 'multipart/form-data'
             }
-        })
-        console.log(res.data);
+        });
+        if (res.data.success) {
+            // Now send the data to the server with the image url
+            const menuItem = {
+                name: data.name,
+                category: data.category,
+                price: parseFloat(data.price),
+                recipe: data.recipe,
+                image: res.data.data.display_url
+            }
+            const menuRes = await axiosSecure.post('/menu', menuItem);
+            console.log(menuRes.data);
+            if (menuRes.data.insertedId) {
+            //     // Show success message
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `${data.name} is added to the menu`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                reset();
+            }
+        }
+        console.log('with image url', res.data);
     }
     return (
         <div className="h-screen">
@@ -33,7 +58,7 @@ const AddItems = () => {
                         <div className="label">
                             <span className="label-text text-black">Recipe name*</span>
                         </div>
-                        <input {...register("name")} type="text" placeholder="Recipe name" className="input input-bordered w-full" required id="name-input"/>
+                        <input {...register("name")} type="text" placeholder="Recipe name" className="input input-bordered w-full" required id="name-input" />
                     </label>
 
                     {/* Category & Price */}
@@ -69,17 +94,8 @@ const AddItems = () => {
                     </label>
 
                     {/* Image Input */}
-                    <input {...register("image")} type="file" className="file-input file-input-bordered file-input-primary w-full bg-gray-400 mt-6" required/> <br />
+                    <input {...register("image")} type="file" className="file-input file-input-bordered file-input-primary w-full bg-gray-400 mt-6" required /> <br />
 
-                    {/* <label>First Name</label>
-                    <input {...register("firstName")} /> */}
-
-                    {/* <label>Gender Selection</label>
-                    <select {...register("gender")}>
-                        <option value="female">female</option>
-                        <option value="male">male</option>
-                        <option value="other">other</option>
-                    </select> */}
                     <button type="submit" className="btn border-0 text-black mt-6">
                         Add Item <ImSpoonKnife></ImSpoonKnife>
                     </button>

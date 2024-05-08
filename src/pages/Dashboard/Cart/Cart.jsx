@@ -4,6 +4,7 @@ import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import { FaTrashCan } from "react-icons/fa6";
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
 
@@ -44,10 +45,16 @@ const Cart = () => {
     return (
         <>
             <SectionTitle heading={'wanna add more'} subHeading={'My Cart'}></SectionTitle>
-            <div className="grid grid-cols-3 gap-4 text-center mb-8 uppercase">
-                <div className=""><h4 className='text-2xl font-medium'>Total Orders: {cart.length}</h4></div>
-                <div className=""><h4 className='text-2xl font-medium'>Total Price: ${totalPrice}</h4></div>
-                <div className=""><button className='bg-slate-600 text-white font-medium' id='pay-btn'>Pay Now</button></div>
+            <div className="grid grid-cols-3 gap-4 text-center uppercase">
+                <div className=""><h4 className='text-2xl font-medium mb-8 mt-2'>Total Orders: {cart.length}</h4></div>
+                <div className=""><h4 className='text-2xl font-medium mb-8 mt-2'>Total Price: ${totalPrice}</h4></div>
+                <div className="">
+                    {
+                        cart.length ? <Link to='/dashboard/payment'>
+                            <button className='btn btn-success'>Pay Now</button>
+                        </Link> : <button disabled className='btn text-slate-600' id='disabled-btn'>Pay Now</button>
+                    }
+                </div>
             </div>
             <div className="overflow-x-auto">
                 <table className="min-w-full text-center">
