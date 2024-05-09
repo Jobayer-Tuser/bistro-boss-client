@@ -3,6 +3,7 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useMenu from "../../../hooks/useMenu";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 const ManageItems = () => {
@@ -75,7 +76,9 @@ const ManageItems = () => {
                                         </td>
                                         <td>${item.price}</td>
                                         <td>
-                                            <button className="btn btn-success text-xl "><FaRegEdit /></button>
+                                            <Link to={`/dashboard/updateItem/${item._id}`}>
+                                                <button className="btn btn-success text-xl "><FaRegEdit /></button>
+                                            </Link>
                                         </td>
                                         <td>
                                             <button onClick={() => handleDeleteItem(item)} className="btn btn-error text-xl"><FaTrash /></button>
