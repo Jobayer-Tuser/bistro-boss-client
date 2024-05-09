@@ -9,6 +9,7 @@ import { FaFilePen } from "react-icons/fa6";
 import { FaBars } from "react-icons/fa6";
 import { ImSpoonKnife } from "react-icons/im";
 import useAdmin from "../hooks/useAdmin";
+import { GiWallet } from "react-icons/gi";
 
 
 const Dashboard = () => {
@@ -38,6 +39,12 @@ const Dashboard = () => {
                                     <NavLink className='flex' to='/'>
                                         <FaHouse className="mt-1" />
                                         <p className="ml-2">Admin Home</p>
+                                    </NavLink>
+                                </li>
+                                <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
+                                    <NavLink className='flex' to='/dashboard/paymentHistory'>
+                                        <GiWallet className="mt-1" />
+                                        <p className="ml-2">Payment History</p>
                                     </NavLink>
                                 </li>
                                 <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
@@ -76,6 +83,12 @@ const Dashboard = () => {
                                     <NavLink className='flex' to='/dashboard/reservation'>
                                         <FaCalendarDays className="mt-1" />
                                         <p className="ml-2">Reservation</p>
+                                    </NavLink>
+                                </li>
+                                <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
+                                    <NavLink className='flex' to='/dashboard/paymentHistory'>
+                                        <FaCalendarDays className="mt-1" />
+                                        <p className="ml-2">Payment History</p>
                                     </NavLink>
                                 </li>
                                 <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
