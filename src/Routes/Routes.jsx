@@ -20,6 +20,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import Reservation from "../pages/Dashboard/Reservation/Reservation";
+import Review from "../pages/Dashboard/Review/Review";
 
 export const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ export const router = createBrowserRouter([
       {
         path: 'reservation',
         element: <Reservation></Reservation>
+      },
+      {
+        path: 'review',
+        element: <Review></Review>
       },
 
       // Admin only routes
