@@ -74,7 +74,7 @@ const Dashboard = () => {
                             </> : <>
                                 {/* User Dashboard starts here. */}
                                 <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
-                                    <NavLink className='flex' to='/'>
+                                    <NavLink className='flex' to='/dashboard/userHome'>
                                         <FaHouse className="mt-1" />
                                         <p className="ml-2">User Home</p>
                                     </NavLink>

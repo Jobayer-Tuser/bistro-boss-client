@@ -5,10 +5,12 @@ import { IoRocket } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useAuth from "../../../hooks/useAuth";
 
 const Review = () => {
     const [rating, setRating] = useState(0);
     const axiosPublic = useAxiosPublic();
+    const {user} = useAuth();
 
     const handleStarClick = (starValue) => {
         setRating(starValue);
@@ -22,7 +24,8 @@ const Review = () => {
             itemName: data.itemName,
             suggestion: data.suggestion,
             details: data.detailReview,
-            rating: rating
+            rating: rating,
+            email: user.email
         }
         const res = await axiosPublic.post('/reviews', reviewData);
         if (res.data.insertedId) {
