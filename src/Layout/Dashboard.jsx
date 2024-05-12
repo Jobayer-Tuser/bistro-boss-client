@@ -42,12 +42,6 @@ const Dashboard = () => {
                                     </NavLink>
                                 </li>
                                 <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
-                                    <NavLink className='flex' to='/dashboard/paymentHistory'>
-                                        <GiWallet className="mt-1" />
-                                        <p className="ml-2">Payment History</p>
-                                    </NavLink>
-                                </li>
-                                <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
                                     <NavLink className='flex' to='/dashboard/addItems'>
                                         <ImSpoonKnife className="mt-1" />
                                         <p className="ml-2">Add Items</p>
@@ -60,7 +54,7 @@ const Dashboard = () => {
                                     </NavLink>
                                 </li>
                                 <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
-                                    <NavLink className='flex' to='/dashboard/bookings'>
+                                    <NavLink className='flex' to='/dashboard/manageBookings'>
                                         <FaBook className="mt-1" />
                                         <p className="ml-2">Manage Bookings</p>
                                     </NavLink>
@@ -87,7 +81,7 @@ const Dashboard = () => {
                                 </li>
                                 <li className="px-8 py-2 hover:bg-gray-700 cursor-pointer mt-2">
                                     <NavLink className='flex' to='/dashboard/paymentHistory'>
-                                        <FaCalendarDays className="mt-1" />
+                                        <GiWallet className="mt-1" />
                                         <p className="ml-2">Payment History</p>
                                     </NavLink>
                                 </li>

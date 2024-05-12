@@ -23,6 +23,7 @@ import Reservation from "../pages/Dashboard/Reservation/Reservation";
 import Review from "../pages/Dashboard/Review/Review";
 import Bookings from "../pages/Dashboard/Bookings/Bookings";
 import UserHome from "../pages/Dashboard/UserHome/UserHome";
+import ManageBookings from "../pages/Dashboard/ManageBookings/ManageBookings";
 
 export const router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ export const router = createBrowserRouter([
       {
         path: 'manageItems',
         element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
+      },
+      {
+        path: 'manageBookings',
+        element: <AdminRoute><ManageBookings></ManageBookings></AdminRoute>
       },
       {
         path: 'updateItem/:id',

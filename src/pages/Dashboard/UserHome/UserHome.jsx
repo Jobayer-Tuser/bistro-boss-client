@@ -48,7 +48,7 @@ const UserHome = () => {
 
             <div className="flex items-center justify-center my-10">
                 <div className="user-info text-center w-full py-20 h-[350px]">
-                    <img src={user.photoURL} alt="" className="inline-block mb-10" />
+                    <img src={`${user.photoURL}`} alt="" className="inline-block mb-10" />
                     <h2 id="rateUs" className="uppercase text-xl">{user.displayName}</h2>
                 </div>
                 <div className="user-activity w-full py-20 h-[350px]">
