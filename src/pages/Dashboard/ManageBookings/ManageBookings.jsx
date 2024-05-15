@@ -4,7 +4,7 @@ import { FaCheck } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { RxCross1 } from "react-icons/rx";
-
+import Swal from "sweetalert2";
 
 const ManageBookings = () => {
     const axiosSecure = useAxiosSecure();
@@ -18,14 +18,56 @@ const ManageBookings = () => {
     });
 
     const handleConfirmBooking = (bookingItem) => {
-        console.log('confirmed', bookingItem.email);
+        Swal.fire({
+            title: "Do you want to confirm the booking?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Confirm",
+            denyButtonText: `Don't confirm`
+        }).then(async (result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                const res = await axiosSecure.patch(`/allBookings/${bookingItem._id}`);
+                if (res.data.modifiedCount > 0) {
+                    refetch();
+                    Swal.fire("Confirmed!", "", "success");
+                }
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
+        });
+    }
+
+    const handleDeleteBooking = (bookingItem) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await axiosSecure.delete(`/allBookings/${bookingItem._id}`);
+                if (res.data.deletedCount > 0) {
+                    refetch();
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Booking has been deleted.",
+                        icon: "success"
+                    });
+                }
+
+            }
+        });
     }
 
     return (
-        <div>
+        <div className="">
             <SectionTitle subHeading={'At a Glance!'} heading={'manage all bookings'}></SectionTitle>
-            <div className="bg-slate-300 w-11/12 mx-auto px-5 py-10">
-                <h2 className="uppercase text-3xl" id="rateUs">total items: 6</h2>
+            <div className="text-black w-11/12 mx-auto px-5 py-10">
+                <h2 className="uppercase text-3xl" id="rateUs">total items: {bookings.length}</h2>
                 <div className="overflow-x-auto">
                     <table className="table mt-5">
                         {/* head */}
@@ -36,7 +78,7 @@ const ManageBookings = () => {
                                 <th>phone number</th>
                                 <th>booking date</th>
                                 <th>booking time</th>
-                                <th>activity</th>
+                                <th>status</th>
                                 <th>action</th>
                             </tr>
                         </thead>
@@ -51,22 +93,22 @@ const ManageBookings = () => {
                                         <td>{booking.date}</td>
                                         <td>{booking.time}</td>
                                         <td className={booking.status === 'done' ? 'text-green-600 capitalize' : 'text-yellow-600 capitalize'}>{booking.status}</td>
-                                        <td>{booking.status === 'done' ? <>
+                                        <td className="">{booking.status === 'done' ? <div className="items-center max-md:flex">
                                             <button disabled="disabled" className={"btn btn-circle btn-md"} id="disabled-btn1">
                                                 <FaCheck />
                                             </button>
                                             <button disabled='disabled' className="btn btn-circle btn-error btn-md ml-2" id="disabled-btn2">
                                                 <RxCross1 />
                                             </button>
-                                        </> : (
-                                            <>
+                                        </div> : (
+                                            <div className="items-center max-md:flex">
                                                 <button onClick={() => handleConfirmBooking(booking)} className={"btn btn-circle btn-success btn-md"}>
                                                     <FaCheck />
                                                 </button>
-                                                <button className="btn btn-circle btn-error btn-md ml-2">
+                                                <button onClick={() => handleDeleteBooking(booking)} className="btn btn-circle btn-error btn-md ml-2">
                                                     <RxCross1 />
                                                 </button>
-                                            </>
+                                            </div>
                                         )}</td>
                                     </tr>
                                 ))

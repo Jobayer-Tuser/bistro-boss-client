@@ -1,19 +1,13 @@
 import { FaTrashCan, FaUsers } from "react-icons/fa6";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useUsers from "../../../hooks/useUsers";
 
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
-    const { data: users = [], refetch } = useQuery({
-        queryKey: ['users'],
-        queryFn: async () => {
-            const res = await axiosSecure.get('/users');
-            return res.data;
-        }
-    });
+    const [users, refetch] = useUsers();
 
     const handleMakeAdmin = user => {
         Swal.fire({
@@ -70,43 +64,47 @@ const AllUsers = () => {
         });
     }
     return (
-        <>
+        <div className=" text-black">
             <SectionTitle subHeading={'How Many??'} heading={'manage all users'}></SectionTitle>
-            <div>
-                <h2 className="uppercase mb-5 text-2xl font-light">total users: {users.length}</h2>
-            </div>
-            <div className="overflow-x-auto h-[100vh]">
-                <table className="min-w-full text-center">
-                    <thead className="" id='cart-table-header'>
-                        <tr className="">
-                            <th className="  bg-gray-200 text-left text-xs leading-4 font-medium uppercase tracking-wider text-center bg-slate-600 py-5 px-2">#</th>
-                            <th className="bg-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider text-center bg-slate-600">Name</th>
-                            <th className=" bg-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider text-center bg-slate-600">Email</th>
-                            <th className=" bg-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider text-center bg-slate-600">Role</th>
-                            <th className=" bg-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider text-center bg-slate-600">Action</th>
+            <div className="w-4/5 mx-auto max-md:w-11/12">
+                <div>
+                    <h2 className="uppercase mb-5 text-2xl font-light">total users: {users.length}</h2>
+                </div>
+                <div className="overflow-x-auto">
+                <table className="table mt-5">
+                    {/* head */}
+                    <thead className="text-black text-center bg-slate-600 text-white">
+                        <tr className="border-0 uppercase">
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody className="bg-transparent">
+                    <tbody className="text-center">
+                        {/* row 1 */}
                         {
                             users.map((user, index) => (
-                                <tr key={user._id} className="">
-                                    <td className="border  whitespace-no-wrap">{index + 1}</td>
-                                    <td className="border  whitespace-no-wrap">{user.name}</td>
-                                    <td className="border  whitespace-no-wrap">{user.email}</td>
-                                    <td className="border  whitespace-no-wrap w-11 rounded">
-                                        {
-                                            user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="p-full text-white btn btn-success"><FaUsers /></button>
-                                        }
+                                <tr className="border-0" key={user._id}>
+                                    <th>{index + 1}</th>
+                                    <td>{user.name}</td>
+                                    <td>{user.email}</td>
+                                    <td className=''>{
+                                        user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="p-full text-white btn btn-success"><FaUsers /></button>
+                                    }</td>
+                                    <td className="">
+                                        <button className="btn btn-outline btn-error" onClick={() => handleDeleteUser(user._id)}><FaTrashCan /></button>
                                     </td>
-                                    <td className="border  whitespace-no-wrap"><button className="btn btn-outline btn-error" onClick={() => handleDeleteUser(user._id)}><FaTrashCan /></button></td>
                                 </tr>
                             ))
                         }
-                        {/* Add more rows as needed */}
                     </tbody>
                 </table>
+                </div>
             </div>
-        </>
+
+        </div >
     );
 };
 

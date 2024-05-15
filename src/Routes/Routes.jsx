@@ -24,6 +24,7 @@ import Review from "../pages/Dashboard/Review/Review";
 import Bookings from "../pages/Dashboard/Bookings/Bookings";
 import UserHome from "../pages/Dashboard/UserHome/UserHome";
 import ManageBookings from "../pages/Dashboard/ManageBookings/ManageBookings";
+import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ export const router = createBrowserRouter([
       },
 
       // Admin only routes
+      {
+        path: 'adminHome',
+        element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+      },
       {
         path: 'addItems',
         element: <AdminRoute><AddItems></AddItems></AdminRoute>

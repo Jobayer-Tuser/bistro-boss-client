@@ -51,7 +51,7 @@ const AddItems = () => {
             <div>
                 <SectionTitle subHeading={"What's new?"} heading={"add an item"}></SectionTitle>
             </div>
-            <div className="w-4/5 mx-auto" id="add-item-form">
+            <div className="w-3/5 mx-auto max-md:w-11/12 bg-slate-100 p-10 max-md:px-5 max-md:py-0 text-black" id="add-item-form">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {/* Name */}
                     <label className="form-control w-full">

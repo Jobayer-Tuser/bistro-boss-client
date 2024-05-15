@@ -36,7 +36,7 @@ const ManageItems = () => {
         });
     }
     return (
-        <>
+        <div className="bg-gray-200 text-black">
             <div>
                 <SectionTitle heading={'Manage All Items'} subHeading={'Hurry Up'}></SectionTitle>
             </div>
@@ -90,7 +90,7 @@ const ManageItems = () => {
                     </table>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

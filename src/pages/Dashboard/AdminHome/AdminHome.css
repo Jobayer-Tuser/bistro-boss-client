@@ -1,19 +1,12 @@
-.menu-part{
+.revenue-part{
     background-image: linear-gradient(to right, #BB34F5 , #CCCCCC);
 }
-.shop-part{
+.customers-part{
     background-image: linear-gradient(to right, #D3A256 , #FDE8C0);
 }
-.contact-part{
+.products-part{
     background-image: linear-gradient(to right, #FE4880 , #FECDE9);
 }
-.user-info{
-    background-color: #FFEDD5;
-}
-.user-activity{
-    background-color: #FEF9C3;
-}
-.user-info img{
-    height: 75%;
-    border-radius: 50%;
+.orders-part{
+    background-image: linear-gradient(to right, #6AAEFF , #B6F7FF);
 }

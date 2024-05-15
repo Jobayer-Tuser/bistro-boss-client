@@ -36,10 +36,10 @@ const Review = () => {
         }
     }
     return (
-        <div>
+        <div className="bg-white pb-8 max-md:bg-slate-300">
             <SectionTitle subHeading={'Sharing is Caring!!!'} heading={'give a review'}></SectionTitle>
-            <div className="w-4/5 mx-auto bg-slate-300 px-20 py-10 text-center my-20">
-                <h2 className="uppercase text-3xl" id="rateUs">rate us!</h2>
+            <div className="w-4/5 mx-auto bg-slate-300 px-20 py-10 text-center my-20 max-md:w-full max-md:px-5">
+                <h2 className="uppercase text-3xl text-black" id="rateUs">rate us!</h2>
                 <div className="my-5">
                     <div className="star-rating">
                         {[1, 2, 3, 4, 5].map((star) => (
@@ -53,7 +53,7 @@ const Review = () => {
                         ))}
                     </div>
                 </div>
-                <div className="text-center">
+                <div className="text-center text-black">
                     <form onSubmit={handleSubmit(handleReview)}>
                         <label className="form-control w-full mb-8">
                             <div className="label">
