@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
     // errorElement: <NotFound />,
     children: [
       {
-        path: '/',
+        index: true,
         element: <Home></Home>
       },
       {
