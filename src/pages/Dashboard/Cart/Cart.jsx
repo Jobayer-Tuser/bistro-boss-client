@@ -26,7 +26,7 @@ const Cart = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/carts/${id}`)
+                axios.delete(`https://bistro-boss-server-two-alpha.vercel.app/carts/${id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0) {
                             refetch();

@@ -16,7 +16,7 @@ import AddItems from "../pages/Dashboard/AddItems/AddItems";
 import AdminRoute from "./AdminRoute";
 import ManageItems from "../pages/Dashboard/ManageItems/ManageItems";
 import Payment from "../pages/Dashboard/Payment/Payment";
-import NotFound from "../pages/NotFound/NotFound";
+// import NotFound from "../pages/NotFound/NotFound";
 import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import Reservation from "../pages/Dashboard/Reservation/Reservation";
@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
-    errorElement: <NotFound />,
+    // errorElement: <NotFound />,
     children: [
       {
         path: '/',
@@ -112,7 +112,7 @@ export const router = createBrowserRouter([
       {
         path: 'updateItem/:id',
         element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
+        loader: ({params}) => fetch(`https://bistro-boss-server-two-alpha.vercel.app/menu/${params.id}`)
       },
       {
         path: 'allUsers',
